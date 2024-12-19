@@ -18,6 +18,8 @@
         }
     </style>
     <script type="text/javascript" src="https://b82b1763d1c3.ef7ef6cc.eu-west-3.captcha.awswaf.com/b82b1763d1c3/jsapi.js" defer></script>
+    <script src="env.js" defer></script>
+
 </head>
 <body>
 
@@ -99,7 +101,7 @@
                 const container = document.querySelector("#my-captcha-container");
 
                 AwsWafCaptcha.renderCaptcha(container, {
-                    apiKey: "...API key goes here...", // Remplacez par votre clé API
+                    apiKey: process.API.KEY,
                     onSuccess: (wafToken) => {
                         resolveCaptcha(wafToken, resolve);
                     },
