@@ -4,22 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forbidden Sequence</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        #form-container, #captcha-container {
-            margin-bottom: 20px;
-        }
-        #result {
-            margin-top: 20px;
-            white-space: pre-wrap;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+
     <script type="text/javascript" src="https://b82b1763d1c3.ef7ef6cc.eu-west-3.captcha.awswaf.com/b82b1763d1c3/jsapi.js" defer></script>
     <script src="env.js" defer></script>
-
 </head>
 <body>
 
@@ -35,7 +23,6 @@
         <h2>Un CAPTCHA est requis pour continuer</h2>
         <p>Veuillez résoudre le CAPTCHA ci-dessous :</p>
         <div id="my-captcha-container">
-            <!-- Le widget CAPTCHA sera rendu ici -->
         </div>
     </div>
 
@@ -47,32 +34,26 @@
         const resultContainer = document.getElementById("result");
         const captchaContainer = document.getElementById("captcha-container");
 
-        let continueSequence = true; // Variable pour gérer la pause/reprise de la séquence
-        
+        let continueSequence = true;
+
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
             const N = parseInt(numberInput.value);
-            resultContainer.textContent = '';
+            resultContainer.textContent = ''; 
             continueSequence = true;
-            await generateSequence(N);
+            await generateSequence(N); 
         });
 
         async function generateSequence(N) {
             for (let i = 1; i <= N; i++) {
                 if (!continueSequence) {
-                    // Attend que la variable soit réinitialisée par le CAPTCHA
-                    await new Promise(resolve => {
-                        const interval = setInterval(() => {
-                            if (continueSequence) {
-                                clearInterval(interval);
-                                resolve();
-                            }
-                        }, 500);
-                    });
+                    await waitForCaptchaResolution();
                 }
 
                 await makeRequest(i);
-                if (i < N) await new Promise(resolve => setTimeout(resolve, 1000));
+                if (i < N) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
             }
         }
 
@@ -93,9 +74,11 @@
             }
         }
 
+        /**
+         */
         async function handleCaptcha() {
             captchaContainer.style.display = "block";
-            continueSequence = false; // Pause la séquence
+            continueSequence = false;
 
             await new Promise(resolve => {
                 const container = document.querySelector("#my-captcha-container");
@@ -112,11 +95,23 @@
                 });
             });
         }
-
         function resolveCaptcha(wafToken, resolve) {
-            captchaContainer.style.display = "none";
-            continueSequence = true; // Reprend la séquence
-            resolve();
+            captchaContainer.style.display = "none"; 
+            continueSequence = true; 
+            resolve(); 
+        }
+
+        /**
+         */
+        async function waitForCaptchaResolution() {
+            await new Promise(resolve => {
+                const interval = setInterval(() => {
+                    if (continueSequence) {
+                        clearInterval(interval); 
+                        resolve();
+                    }
+                }, 500); 
+            });
         }
     </script>
 </body>

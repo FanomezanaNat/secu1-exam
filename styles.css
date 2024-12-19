@@ -1,0 +1,122 @@
+/* General Reset and Setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Form container */
+#form-container, #captcha-container, #result {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    margin: 20px;
+}
+
+/* Headings */
+h1, h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Input Field */
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input[type="number"]:focus {
+    border-color: #4A90E2;
+    outline: none;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4A90E2;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #357ABD;
+}
+
+/* Result Container */
+#result {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #333;
+    white-space: pre-wrap;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/* CAPTCHA Container */
+#captcha-container {
+    display: none;
+    text-align: center;
+}
+
+#my-captcha-container {
+    margin-top: 20px;
+}
+
+/* Spacing and Visual Enhancements */
+p {
+    font-size: 16px;
+    color: #6c6c6c;
+    margin-bottom: 15px;
+}
+
+button, input[type="number"] {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    #form-container, #captcha-container, #result {
+        padding: 20px;
+    }
+
+    h1, h2 {
+        font-size: 20px;
+    }
+}
